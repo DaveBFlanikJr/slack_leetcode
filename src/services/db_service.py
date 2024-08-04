@@ -2,9 +2,12 @@ from logging import getLogger
 import sqlalchemy
 from attrs import define, field
 import os
+from dotenv import load_dotenv
 
 # Logger
 logger = getLogger(__name__)
+# env 
+load_dotenv()
 
 # Define the table for the leetcode problems 
 @define
@@ -58,6 +61,7 @@ class DatabaseBuilder:
                 )
                 # Execute query 
                 conn.execute(query)
+                conn.commit()
                 logger.info(f"Solution for problem number {problem_number} inserted successfully.")
         except Exception as e:
             logger.error(f"Error inserting solution: {e}")
@@ -82,12 +86,8 @@ class DatabaseBuilder:
 def get_database():
     # pass in the URL for the database
     database_url = os.getenv("DATABASE_URL")
-    # Safty check 
     if not database_url:
         logger.error("DATABASE_URL environment variable is not set.")
-        return
-    database = DatabaseBuilder(database_url)
-    try:
-        yield database
-    finally:
-        database.engine.dispose()
+        return None
+
+    return DatabaseBuilder(database_url)
