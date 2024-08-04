@@ -36,6 +36,15 @@ class DatabaseBuilder:
         except Exception as e:
             logger.info(f"Error initializing DB: {e}")
 
+    # drop table if needed 
+    def drop_table(self):
+        logger.info("Dropping solutions table.")
+        try:
+            self.metadata.drop_all(self.engine, [self.solutions])
+            logger.info("Solutions table dropped successfully.")
+        except Exception as e:
+            logger.error(f"Error dropping solutions table: {e}")
+
     # Must have a method to create an entry into the db 
     def insert_solution(self, problem_number, problem_name, code):
         logger.info("Inserting solution into the DB")
