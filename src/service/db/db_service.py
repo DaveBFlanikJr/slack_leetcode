@@ -74,7 +74,7 @@ class DatabaseBuilder:
                 result = conn.execute(query).fetchone()
                 if result:
                     logger.info(f"Solution for problem number {problem_number} fetched successfully.")
-                    return result['code']
+                    return result[2]
                 else:
                     logger.warning(f"No solution found for problem number {problem_number}")
                     return None
