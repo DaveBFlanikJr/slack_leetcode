@@ -1,7 +1,7 @@
 import argparse
 import os
 from contextlib import contextmanager
-from db_service import get_database, logger
+from service.db.db_service import get_database, logger
 
 '''This file will be used to handle commands needed to 
         - Init the db 

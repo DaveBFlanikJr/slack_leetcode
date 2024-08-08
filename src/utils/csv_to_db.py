@@ -1,11 +1,11 @@
 import os
 import csv
-from services.db_service import DatabaseBuilder, get_database
+from service.db.db_service import DatabaseBuilder, get_database
 from fastapi import Depends
 
 # path to csv file 
 
-csv_file = os.path.join(os.path.dirname(__file__), "../csv/problems.csv")
+csv_file = os.path.join(os.path.dirname(__file__), "../../csv/problems.csv")
 
 if csv_file:
     print(f"Path to csv: {csv_file}")
@@ -41,10 +41,10 @@ def migrate_csv_to_db(db: DatabaseBuilder = Depends(get_database)):
         print(f"Error during CSV migration: {e}")
 
 # To run the function
-if __name__ == "__main__":
-    db_instance = get_database()
-    if db_instance:
-        migrate_csv_to_db(db=db_instance)
-        db_instance.engine.dispose()
-    else:
-        print("Failed to obtain a database instance.")
+
+db_instance = get_database()
+if db_instance:
+    migrate_csv_to_db(db=db_instance)
+    db_instance.engine.dispose()
+else:
+    print("Failed to obtain a database instance.")

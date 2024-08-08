@@ -1,4 +1,4 @@
-from db_service import DatabaseBuilder, get_database
+from service.db.db_service import DatabaseBuilder, get_database
 from fastapi import Depends
 
 
